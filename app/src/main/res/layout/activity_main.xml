@@ -13,10 +13,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.665" />
 
     <TextView
         android:id="@+id/TitelUsername"
@@ -41,26 +41,48 @@
         app:layout_constraintTop_toBottomOf="@+id/TitelUsername" />
 
     <Button
-        android:id="@+id/PlayButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#4CAF50"
+        android:id="@+id/btnPlay"
+        android:layout_width="83dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#FF9800"
         android:onClick="startGame"
         android:text="Play"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/InputUsername" />
 
     <Button
-        android:id="@+id/ShowRankingButton"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
+        android:id="@+id/btnShowRanking"
+        android:layout_width="183dp"
+        android:layout_height="48dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:backgroundTint="#57BBE8"
         android:onClick="showRanking"
         android:text="Actual Ranking"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PlayButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+
+    <Button
+        android:id="@+id/btnShowSettings"
+        android:layout_width="183dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#57BBE8"
+        android:text="Settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowRanking" />
+
+    <ImageView
+        android:id="@+id/ImageKofferMain"
+        android:layout_width="162dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowSettings"
+        app:srcCompat="@drawable/koffer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

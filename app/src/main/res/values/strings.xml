@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Suitcase</string>
     <string name="defaultUsername">Anonym</string>
+    <string name="hutBild_name">Hut</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
             i_Play.putExtra("UserName", stUsername);
             startActivity(i_Play);
         }
-        /*
-        if (userListe.get(0) == "leer"){
-            userListe.set(0,"Nutzername");
-        }
-        else{
-            userListe.set(0,"Nr.2");
-        }
-        */
-
     }
 
     public void showRanking(View v){
