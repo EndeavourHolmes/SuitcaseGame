@@ -37,60 +37,12 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/ausgabe1"
-                android:layout_width="175dp"
-                android:layout_height="23dp"
-                android:layout_marginTop="4dp"
+                android:id="@+id/ausgabe"
+                android:layout_width="340dp"
+                android:layout_height="82dp"
                 android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/ausgabe2"
-                android:layout_width="299dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="12dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ausgabe1" />
-
-            <TextView
-                android:id="@+id/ausgabe3"
-                android:layout_width="193dp"
-                android:layout_height="26dp"
-                android:layout_marginStart="132dp"
-                android:layout_marginTop="16dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ausgabe2" />
-
-            <TextView
-                android:id="@+id/ausgabe4"
-                android:layout_width="179dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="4dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/ausgabe5"
-                android:layout_width="51dp"
-                android:layout_height="26dp"
-                android:layout_marginTop="9dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ausgabe4" />
-
-            <TextView
-                android:id="@+id/ausgabe6"
-                android:layout_width="163dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ausgabe5" />
+                tools:layout_editor_absoluteX="13dp"
+                tools:layout_editor_absoluteY="13dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout

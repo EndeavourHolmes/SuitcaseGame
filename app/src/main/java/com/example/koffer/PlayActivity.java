@@ -13,6 +13,9 @@ import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayActivity extends AppCompatActivity {
 
     private RelativeLayout viewGrSpielwiese; //ViewGroup viewGrSpielwiese;
@@ -38,6 +41,9 @@ public class PlayActivity extends AppCompatActivity {
     private int xZielMittBild;
     private int yZielMittBild;
 
+    public List listeSpieler1 = new ArrayList();
+    public List listeSpieler2 = new ArrayList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +57,10 @@ public class PlayActivity extends AppCompatActivity {
         bildBall = (ImageView) findViewById(R.id.imgBall);
         bildBrille = (ImageView) findViewById((R.id.imgBrille));
 
-        bildHut.setOnTouchListener(bewegBild());
-        bildSchirm.setOnTouchListener(bewegBild());
-        bildBall.setOnTouchListener(bewegBild());
-        bildBrille.setOnTouchListener(bewegBild());
+        bildHut.setOnTouchListener(bewegBild("Hut"));
+        bildSchirm.setOnTouchListener(bewegBild("Schirm"));
+        bildBall.setOnTouchListener(bewegBild("Ball"));
+        bildBrille.setOnTouchListener(bewegBild("Brille"));
 
         groesse = true;
         groesser = 1.2;
@@ -70,7 +76,7 @@ public class PlayActivity extends AppCompatActivity {
         hoeheKoffer = paramsKoffer.width;
     }
 
-    private OnTouchListener bewegBild(){
+    private OnTouchListener bewegBild(String bildName){
         return new OnTouchListener(){
             @SuppressLint("ClickableViewAccessibility") //Indicates that Lint should ignore the specified warnings for the annotated element.
             @Override
@@ -125,10 +131,18 @@ public class PlayActivity extends AppCompatActivity {
                             paramsBild.height = (int)(paramsBild.height/20);
                             paramsBild.width = (int)(paramsBild.width/20);
                             v.setLayoutParams(paramsBild);
-                            v.setVisibility(View.INVISIBLE);
+                            v.setVisibility(View.INVISIBLE); //GONE
 
-                            ((TextView)findViewById(R.id.ausgabe1)).setText("iD: " + v.getId());
-                            ((TextView)findViewById(R.id.ausgabe2)).setText("ImageHutID: " + (findViewById(R.id.imgHut).toString()));
+                            listeSpieler1.add(bildName);
+                            String strAusgabe = "";
+
+                            for (int i=0;i<listeSpieler1.size();i++){
+                                strAusgabe += listeSpieler1.get(i);
+                                strAusgabe += "\n";
+                            }
+
+                            ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
+
                             break;
                         }
 
@@ -144,6 +158,9 @@ public class PlayActivity extends AppCompatActivity {
                 return true;
             }
         };
+
+
+        //protected void onVisibilityChanged (View changedView, int visibility)
     }
 
 
