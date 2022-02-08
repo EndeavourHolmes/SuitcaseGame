@@ -54,6 +54,9 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         Intent i = getIntent();
 
+        String stUserName = i.getStringExtra("UserName");
+        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
+
         viewGrPlayground = (RelativeLayout) findViewById(R.id.layoutPlayground);
 
         ImageViewObjects.add((ImageView) findViewById(R.id.imgHat));
@@ -66,6 +69,31 @@ public class PlayActivity extends AppCompatActivity {
             imgV.setOnTouchListener(movePicture(imgV.toString()));
         }
 
+        groesse = true;
+        groesser = 1.2;
+
+        ImageView bildKoffer = (ImageView)findViewById(R.id.ImageSuitcasePlay);
+        RelativeLayout.LayoutParams paramsKoffer = (RelativeLayout.LayoutParams)bildKoffer.getLayoutParams();
+        xKoffer = paramsKoffer.leftMargin;
+        yKoffer = paramsKoffer.topMargin;
+        breiteKoffer = paramsKoffer.height;
+        hoeheKoffer = paramsKoffer.width;
+
+        //Test
+        Pictures suitcase = new Pictures();
+        suitcase.setxStart(paramsKoffer.leftMargin);
+        ((TextView)findViewById(R.id.ausgabe)).setText("Testausgabe:" + suitcase.getxStart());
+
+        List<Pictures> listPictureObjects = new ArrayList(); // Test Liste
+
+        /* TODO: Pictures-Objekte in Schleife erstellen???
+        int zaehler = 0;
+        for (ImageView imgV : ImageViewObjects) {
+            Pictures listPictureObjects(zaehler).add(new Pictures());
+            zaehler++;
+        }
+        */
+
         /*
         bildHut = (ImageView) findViewById(R.id.imgHut);
         bildSchirm = (ImageView) findViewById(R.id.imgSchirm);
@@ -77,22 +105,9 @@ public class PlayActivity extends AppCompatActivity {
         bildBall.setOnTouchListener(bewegBild("Ball"));
         bildBrille.setOnTouchListener(bewegBild("Brille"));
         */
-
-        groesse = true;
-        groesser = 1.2;
-
-        String stUserName = i.getStringExtra("UserName");
-        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
-
-        ImageView bildKoffer = (ImageView)findViewById(R.id.ImageSuitcasePlay);
-        RelativeLayout.LayoutParams paramsKoffer = (RelativeLayout.LayoutParams)bildKoffer.getLayoutParams();
-        xKoffer = paramsKoffer.leftMargin;
-        yKoffer = paramsKoffer.topMargin;
-        breiteKoffer = paramsKoffer.height;
-        hoeheKoffer = paramsKoffer.width;
     }
 
-    private OnTouchListener movePicture(String bildName){
+    private OnTouchListener movePicture(String pictureIdInformation){
         return new OnTouchListener(){
             @SuppressLint("ClickableViewAccessibility") //Indicates that Lint should ignore the specified warnings for the annotated element.
             @Override
@@ -149,7 +164,7 @@ public class PlayActivity extends AppCompatActivity {
                             v.setLayoutParams(paramsBild);
                             v.setVisibility(View.INVISIBLE); //GONE
 
-                            listPlayer1.add(bildName);
+                            listPlayer1.add(pictureIdInformation);
                             String strAusgabe = "";
 
                             for (int i = 0; i< listPlayer1.size(); i++){
