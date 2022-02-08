@@ -13,18 +13,90 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.309">
 
         <TextView
             android:id="@+id/WelcomeMessage"
-            android:layout_width="363dp"
-            android:layout_height="34dp"
+            android:layout_width="239dp"
+            android:layout_height="29dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Hello"
             android:textSize="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/layoutPlayground"
+            android:layout_width="match_parent"
+            android:layout_height="553dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/WelcomeMessage"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/imgBedroomBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/bedroom" />
+
+            <ImageView
+                android:id="@+id/ImageSuitcasePlay"
+                android:layout_width="244dp"
+                android:layout_height="195dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="-18dp"
+                android:layout_marginTop="374dp"
+                app:srcCompat="@drawable/suitcase" />
+
+            <ImageView
+                android:id="@+id/imgTeddy"
+                android:layout_width="83dp"
+                android:layout_height="77dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="267dp"
+                app:srcCompat="@drawable/teddy" />
+
+            <ImageView
+                android:id="@+id/imgNightTable"
+                android:layout_width="116dp"
+                android:layout_height="112dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="159dp"
+                android:layout_marginTop="328dp"
+                app:srcCompat="@drawable/nighttable" />
+
+            <ImageView
+                android:id="@+id/imgHat"
+                android:layout_width="85dp"
+                android:layout_height="78dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="194dp"
+                android:layout_marginTop="180dp"
+                app:srcCompat="@drawable/hat" />
+
+            <ImageView
+                android:id="@+id/imgUmbrella"
+                android:layout_width="177dp"
+                android:layout_height="153dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="201dp"
+                android:layout_marginTop="411dp"
+                app:srcCompat="@drawable/umbrella" />
+
+
+        </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -33,91 +105,29 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.238"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintHorizontal_bias="0.238">
 
             <TextView
                 android:id="@+id/ausgabe"
                 android:layout_width="340dp"
                 android:layout_height="82dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="13dp"
-                tools:layout_editor_absoluteY="13dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RelativeLayout
-            android:id="@+id/layoutSpielwiese"
-            android:layout_width="366dp"
-            android:layout_height="553dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        <Button
+            android:id="@+id/btnEndGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:text="End Game"
+            app:layout_constraintBottom_toTopOf="@+id/layoutPlayground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.571"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/WelcomeMessage"
-            app:layout_constraintVertical_bias="0.0">
-
-            <ImageView
-                android:id="@+id/imgHut"
-                android:layout_width="114dp"
-                android:layout_height="56dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="169dp"
-                android:layout_marginTop="186dp"
-                android:contentDescription="@string/hutBild_name"
-                app:srcCompat="@drawable/hut" />
-
-            <ImageView
-                android:id="@+id/ImageKofferPlay"
-                android:layout_width="113dp"
-                android:layout_height="76dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="466dp"
-                app:srcCompat="@drawable/koffer" />
-
-            <Button
-                android:id="@+id/btnEndGame"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="26dp"
-                android:layout_marginBottom="20dp"
-                android:text="End Game" />
-
-            <ImageView
-                android:id="@+id/imgSchirm"
-                android:layout_width="83dp"
-                android:layout_height="86dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="248dp"
-                app:srcCompat="@drawable/schirm" />
-
-            <ImageView
-                android:id="@+id/imgBall"
-                android:layout_width="85dp"
-                android:layout_height="81dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="210dp"
-                android:layout_marginTop="331dp"
-                app:srcCompat="@drawable/ball" />
-
-            <ImageView
-                android:id="@+id/imgBrille"
-                android:layout_width="98dp"
-                android:layout_height="51dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="53dp"
-                android:layout_marginTop="102dp"
-                app:srcCompat="@drawable/brille" />
-        </RelativeLayout>
+            app:layout_constraintStart_toEndOf="@+id/WelcomeMessage"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

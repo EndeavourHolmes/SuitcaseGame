@@ -18,11 +18,13 @@ import java.util.List;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private RelativeLayout viewGrSpielwiese; //ViewGroup viewGrSpielwiese;
+    private RelativeLayout viewGrPlayground; //ViewGroup viewGrSpielwiese;
+    /*
     private ImageView bildHut;
     private ImageView bildSchirm;
     private ImageView bildBall;
     private ImageView bildBrille;
+     */
 
     private boolean groesse;
     private double groesser;
@@ -41,8 +43,10 @@ public class PlayActivity extends AppCompatActivity {
     private int xZielMittBild;
     private int yZielMittBild;
 
-    public List listeSpieler1 = new ArrayList();
+    public List listPlayer1 = new ArrayList();
     public List listeSpieler2 = new ArrayList();
+
+    public List<ImageView> ImageViewObjects = new ArrayList(); // Test Liste
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,19 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         Intent i = getIntent();
 
-        viewGrSpielwiese = (RelativeLayout) findViewById(R.id.layoutSpielwiese);
+        viewGrPlayground = (RelativeLayout) findViewById(R.id.layoutPlayground);
 
+        ImageViewObjects.add((ImageView) findViewById(R.id.imgHat));
+        ImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
+        ImageViewObjects.add((ImageView) findViewById(R.id.imgNightTable));
+        ImageViewObjects.add((ImageView) findViewById(R.id.imgUmbrella));
+
+        // Set on Touch Listener for every object
+        for (ImageView imgV : ImageViewObjects) {
+            imgV.setOnTouchListener(movePicture(imgV.toString()));
+        }
+
+        /*
         bildHut = (ImageView) findViewById(R.id.imgHut);
         bildSchirm = (ImageView) findViewById(R.id.imgSchirm);
         bildBall = (ImageView) findViewById(R.id.imgBall);
@@ -61,6 +76,7 @@ public class PlayActivity extends AppCompatActivity {
         bildSchirm.setOnTouchListener(bewegBild("Schirm"));
         bildBall.setOnTouchListener(bewegBild("Ball"));
         bildBrille.setOnTouchListener(bewegBild("Brille"));
+        */
 
         groesse = true;
         groesser = 1.2;
@@ -68,7 +84,7 @@ public class PlayActivity extends AppCompatActivity {
         String stUserName = i.getStringExtra("UserName");
         ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
 
-        ImageView bildKoffer = (ImageView)findViewById(R.id.ImageKofferPlay);
+        ImageView bildKoffer = (ImageView)findViewById(R.id.ImageSuitcasePlay);
         RelativeLayout.LayoutParams paramsKoffer = (RelativeLayout.LayoutParams)bildKoffer.getLayoutParams();
         xKoffer = paramsKoffer.leftMargin;
         yKoffer = paramsKoffer.topMargin;
@@ -76,7 +92,7 @@ public class PlayActivity extends AppCompatActivity {
         hoeheKoffer = paramsKoffer.width;
     }
 
-    private OnTouchListener bewegBild(String bildName){
+    private OnTouchListener movePicture(String bildName){
         return new OnTouchListener(){
             @SuppressLint("ClickableViewAccessibility") //Indicates that Lint should ignore the specified warnings for the annotated element.
             @Override
@@ -124,25 +140,24 @@ public class PlayActivity extends AppCompatActivity {
                         xZielMittBild = paramsBild.leftMargin + xMittelpunktBild;
                         yZielMittBild = paramsBild.topMargin + yMittelpunktBild;
 
-                        xBis = xKoffer+breiteKoffer+100;
+                        xBis = (int)((xKoffer+breiteKoffer)*groesser*groesser);
                         yBis = yKoffer+hoeheKoffer;
 
                         if (((xKoffer < xZielMittBild) && (xZielMittBild < xBis))&& ((yKoffer < yZielMittBild) && (yZielMittBild < yBis))){
-                            paramsBild.height = (int)(paramsBild.height/20);
-                            paramsBild.width = (int)(paramsBild.width/20);
+                            paramsBild.height = (int)(paramsBild.height);
+                            paramsBild.width = (int)(paramsBild.width);
                             v.setLayoutParams(paramsBild);
                             v.setVisibility(View.INVISIBLE); //GONE
 
-                            listeSpieler1.add(bildName);
+                            listPlayer1.add(bildName);
                             String strAusgabe = "";
 
-                            for (int i=0;i<listeSpieler1.size();i++){
-                                strAusgabe += listeSpieler1.get(i);
+                            for (int i = 0; i< listPlayer1.size(); i++){
+                                strAusgabe += listPlayer1.get(i);
                                 strAusgabe += "\n";
                             }
 
-                            ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
-
+                            ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe); // Kontrolle //TODO: imgObjektName rausfiltern --> Liste
                             break;
                         }
 
@@ -154,7 +169,7 @@ public class PlayActivity extends AppCompatActivity {
                             groesse = true;
                         }
                 }
-                viewGrSpielwiese.invalidate();
+                viewGrPlayground.invalidate();
                 return true;
             }
         };
