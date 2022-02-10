@@ -19,34 +19,23 @@ import java.util.List;
 public class PlayActivity extends AppCompatActivity {
 
     private RelativeLayout viewGrPlayground; //ViewGroup viewGrSpielwiese;
-    /*
-    private ImageView bildHut;
-    private ImageView bildSchirm;
-    private ImageView bildBall;
-    private ImageView bildBrille;
-     */
+    private  Pictures suitcase = new Pictures();
 
-    private boolean groesse;
-    private double groesser;
+    private boolean bSize;
+    private double dwBigger;
 
-    private int xKoffer;
-    private int yKoffer;
-    private int hoeheKoffer;
-    private int breiteKoffer;
-    private int xBis;
-    private int yBis;
-
-    private int xWert;
-    private int yWert;
-    private int xMittelpunktBild;
-    private int yMittelpunktBild;
-    private int xZielMittBild;
-    private int yZielMittBild;
+    private int nXdiffEventPict;
+    private int nYdiffEventPict;
+    private int nXcentreOfPicture;
+    private int nYcentreOfPicture;
+    private int nXmarginCentrePict;
+    private int nYmarginCentrePict;
 
     public List listPlayer1 = new ArrayList();
     public List listeSpieler2 = new ArrayList();
 
-    public List<ImageView> ImageViewObjects = new ArrayList(); // Test Liste
+    public List<ImageView> listImageViewObjects = new ArrayList();
+    public List<Pictures> listPictureObjects = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,57 +43,64 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         Intent i = getIntent();
 
+        // Details shown on top
         String stUserName = i.getStringExtra("UserName");
         ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
 
+        // Playground and images referred to objects
         viewGrPlayground = (RelativeLayout) findViewById(R.id.layoutPlayground);
 
-        ImageViewObjects.add((ImageView) findViewById(R.id.imgHat));
-        ImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
-        ImageViewObjects.add((ImageView) findViewById(R.id.imgNightTable));
-        ImageViewObjects.add((ImageView) findViewById(R.id.imgUmbrella));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgHat));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgNightTable));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgUmbrella));
 
         // Set on Touch Listener for every object
-        for (ImageView imgV : ImageViewObjects) {
+        for (ImageView imgV : listImageViewObjects) {
             imgV.setOnTouchListener(movePicture(imgV.toString()));
         }
 
-        groesse = true;
-        groesser = 1.2;
+        // Suitcase-object
+        ImageView imgViewSuitcasePlay = (ImageView)findViewById(R.id.imgSuitcasePlay);
+        RelativeLayout.LayoutParams paramsSuitcase = (RelativeLayout.LayoutParams)imgViewSuitcasePlay.getLayoutParams();
 
-        ImageView bildKoffer = (ImageView)findViewById(R.id.ImageSuitcasePlay);
-        RelativeLayout.LayoutParams paramsKoffer = (RelativeLayout.LayoutParams)bildKoffer.getLayoutParams();
-        xKoffer = paramsKoffer.leftMargin;
-        yKoffer = paramsKoffer.topMargin;
-        breiteKoffer = paramsKoffer.height;
-        hoeheKoffer = paramsKoffer.width;
+        suitcase.setnXstart(paramsSuitcase.leftMargin);
+        suitcase.setnYstart(paramsSuitcase.topMargin);
+        suitcase.setnXwidth(paramsSuitcase.width);
+        suitcase.setnYheight(paramsSuitcase.height);
+        suitcase.setnXend((int)((suitcase.getnXstart()+suitcase.getnXwidth())*0.9));
+        suitcase.setnYend((int)((suitcase.getnYstart()+suitcase.getnYheight())*0.9));
+
+
+        // For every Image-object a picture-object with origin coordinates
+        int nCountPictureObjects = 0;
+
+        for (ImageView imgV : listImageViewObjects) {
+            listPictureObjects.add(new Pictures());
+            RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams)imgV.getLayoutParams();
+            listPictureObjects.get(nCountPictureObjects).setnXorigin(paramsForEveryPicture.leftMargin);
+            listPictureObjects.get(nCountPictureObjects).setnYorigin(paramsForEveryPicture.topMargin);
+            nCountPictureObjects++;
+        }
 
         //Test
-        Pictures suitcase = new Pictures();
-        suitcase.setxStart(paramsKoffer.leftMargin);
-        ((TextView)findViewById(R.id.ausgabe)).setText("Testausgabe:" + suitcase.getxStart());
-
-        List<Pictures> listPictureObjects = new ArrayList(); // Test Liste
-
-        /* TODO: Pictures-Objekte in Schleife erstellen???
-        int zaehler = 0;
-        for (ImageView imgV : ImageViewObjects) {
-            Pictures listPictureObjects(zaehler).add(new Pictures());
-            zaehler++;
-        }
-        */
-
         /*
-        bildHut = (ImageView) findViewById(R.id.imgHut);
-        bildSchirm = (ImageView) findViewById(R.id.imgSchirm);
-        bildBall = (ImageView) findViewById(R.id.imgBall);
-        bildBrille = (ImageView) findViewById((R.id.imgBrille));
+        ((TextView)findViewById(R.id.ausgabe)).setText("Hut X:" + listPictureObjects.get(0).getnXorigin() +
+               "Hut Y: " + listPictureObjects.get(0).getnYorigin() + "\n" +
+                "Teddy X: " + listPictureObjects.get(1).getnXorigin() + "\n" +
+                "Teddy Y: "+ listPictureObjects.get(1).getnYorigin());
 
-        bildHut.setOnTouchListener(bewegBild("Hut"));
-        bildSchirm.setOnTouchListener(bewegBild("Schirm"));
-        bildBall.setOnTouchListener(bewegBild("Ball"));
-        bildBrille.setOnTouchListener(bewegBild("Brille"));
-        */
+        Pictures test = new Pictures();
+        listPictureObjects.add(test);
+        listPictureObjects.get(0).setnXorigin(2);
+        test.setnXorigin(2);
+
+         */
+
+        // Variables: picture when clicked bigger
+        bSize = true;
+        dwBigger = 1.2;
+
     }
 
     private OnTouchListener movePicture(String pictureIdInformation){
@@ -113,55 +109,53 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
+                final int nXevent = (int) event.getRawX();
+                final int nYevent = (int) event.getRawY();
 
-                ImageView bild = (ImageView) v;
+                ImageView imgView = (ImageView) v;
 
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
                     case MotionEvent.ACTION_DOWN:
-                        RelativeLayout.LayoutParams paramsBild = (RelativeLayout.LayoutParams)v.getLayoutParams();
-                        xWert = x - paramsBild.leftMargin;
-                        yWert = y - paramsBild.topMargin;
+                        // Difference between event and picture
+                        RelativeLayout.LayoutParams paramsPicture = (RelativeLayout.LayoutParams)v.getLayoutParams();
+                        nXdiffEventPict = nXevent - paramsPicture.leftMargin;
+                        nYdiffEventPict = nYevent - paramsPicture.topMargin;
 
-                        bild.bringToFront();
-                        bild.setColorFilter(Color.argb(40, 255, 255, 0));
+                        // Centre of picture
+                        nXcentreOfPicture = (int)(paramsPicture.width/2);
+                        nYcentreOfPicture = (int)(paramsPicture.height/2);
 
-                        xMittelpunktBild = paramsBild.width/2;
-                        yMittelpunktBild = paramsBild.height/2;
-
-                        if (groesse){
-                            paramsBild.height = (int)(paramsBild.height*groesser);
-                            paramsBild.width = (int)(paramsBild.width*groesser);
-                            v.setLayoutParams(paramsBild);
-                            groesse = false;
+                        // Highlighting picture
+                        imgView.bringToFront();
+                        imgView.setColorFilter(Color.argb(40, 255, 255, 0));
+                        if (bSize){
+                            paramsPicture.height = (int)(paramsPicture.height* dwBigger);
+                            paramsPicture.width = (int)(paramsPicture.width* dwBigger);
+                            v.setLayoutParams(paramsPicture);
+                            bSize = false;
                         }
                         break;
 
                     case MotionEvent.ACTION_MOVE:
                         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                                 v.getLayoutParams();
-                        layoutParams.leftMargin = x - xWert;
-                        layoutParams.topMargin = y - yWert;
+                        layoutParams.leftMargin = nXevent - nXdiffEventPict;
+                        layoutParams.topMargin = nYevent - nYdiffEventPict;
                         layoutParams.rightMargin = 0;
                         layoutParams.bottomMargin = 0;
                         v.setLayoutParams(layoutParams);
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        paramsBild = (RelativeLayout.LayoutParams)v.getLayoutParams();
+                        paramsPicture = (RelativeLayout.LayoutParams)v.getLayoutParams();
 
-                        xZielMittBild = paramsBild.leftMargin + xMittelpunktBild;
-                        yZielMittBild = paramsBild.topMargin + yMittelpunktBild;
+                        // Check if picture within suitcase
+                        nXmarginCentrePict = paramsPicture.leftMargin + nXcentreOfPicture;
+                        nYmarginCentrePict = paramsPicture.topMargin + nYcentreOfPicture;
 
-                        xBis = (int)((xKoffer+breiteKoffer)*groesser*groesser);
-                        yBis = yKoffer+hoeheKoffer;
-
-                        if (((xKoffer < xZielMittBild) && (xZielMittBild < xBis))&& ((yKoffer < yZielMittBild) && (yZielMittBild < yBis))){
-                            paramsBild.height = (int)(paramsBild.height);
-                            paramsBild.width = (int)(paramsBild.width);
-                            v.setLayoutParams(paramsBild);
+                        if (((suitcase.getnXstart() < nXmarginCentrePict) && (nXmarginCentrePict < suitcase.getnXend()))&&
+                                ((suitcase.getnYstart() < nYmarginCentrePict) && (nYmarginCentrePict < suitcase.getnYend()))){
                             v.setVisibility(View.INVISIBLE); //GONE
 
                             listPlayer1.add(pictureIdInformation);
@@ -176,12 +170,13 @@ public class PlayActivity extends AppCompatActivity {
                             break;
                         }
 
-                        bild.setColorFilter(Color.argb(0, 0, 0, 0));
-                        if (!groesse){
-                            paramsBild.height = (int)(paramsBild.height/groesser);
-                            paramsBild.width = (int)(paramsBild.width/groesser);
-                            v.setLayoutParams(paramsBild);
-                            groesse = true;
+                        // Reset picture before highlighting
+                        imgView.setColorFilter(Color.argb(0, 0, 0, 0));
+                        if (!bSize){
+                            paramsPicture.height = (int)(paramsPicture.height/ dwBigger);
+                            paramsPicture.width = (int)(paramsPicture.width/ dwBigger);
+                            v.setLayoutParams(paramsPicture);
+                            bSize = true;
                         }
                 }
                 viewGrPlayground.invalidate();
