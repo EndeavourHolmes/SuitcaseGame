@@ -2,95 +2,95 @@ package com.example.koffer;
 
 public class Pictures {
 
-    private int nXorigin;
-    private int nYorigin;
-    private int nXstart;
-    private int nYstart;
-    private int nXcentre;
-    private int nYcentre;
-    private int nXend;
-    private int nYend;
-    private int nXwidth;
-    private int nYheight;
+    private int xOrigin;
+    private int yOrigin;
+    private int xStart;
+    private int yStart;
+    private int xCentre;
+    private int yCentre;
+    private int xEnd;
+    private int yEnd;
+    private int xWidth;
+    private int yHeight;
 
-    public int getnXorigin() {
-        return nXorigin;
+    public int getxOrigin() {
+        return xOrigin;
     }
 
-    public void setnXorigin(int xOrigin) {
-        this.nXorigin = xOrigin;
+    public void setxOrigin(int xOrigin) {
+        this.xOrigin = xOrigin;
     }
 
-    public int getnYorigin() {
-        return nYorigin;
+    public int getyOrigin() {
+        return yOrigin;
     }
 
-    public void setnYorigin(int nYorigin) {
-        this.nYorigin = nYorigin;
+    public void setyOrigin(int yOrigin) {
+        this.yOrigin = yOrigin;
     }
 
-    public int getnXstart() {
-        return nXstart;
+    public int getxStart() {
+        return xStart;
     }
 
-    public void setnXstart(int nXstart) {
-        this.nXstart = nXstart;
+    public void setxStart(int xStart) {
+        this.xStart = xStart;
     }
 
-    public int getnYstart() {
-        return nYstart;
+    public int getyStart() {
+        return yStart;
     }
 
-    public void setnYstart(int nYstart) {
-        this.nYstart = nYstart;
+    public void setyStart(int yStart) {
+        this.yStart = yStart;
     }
 
-    public int getnXcentre() {
-        return nXcentre;
+    public int getxCentre() {
+        return xCentre;
     }
 
-    public void setnXcentre(int nXcentre) {
-        this.nXcentre = nXcentre;
+    public void setxCentre(int xCentre) {
+        this.xCentre = xCentre;
     }
 
-    public int getnYcentre() {
-        return nYcentre;
+    public int getyCentre() {
+        return yCentre;
     }
 
-    public void setnYcentre(int nYcentre) {
-        this.nYcentre = nYcentre;
+    public void setyCentre(int yCentre) {
+        this.yCentre = yCentre;
     }
 
-    public int getnXend() {
-        return nXend;
+    public int getxEnd() {
+        return xEnd;
     }
 
-    public void setnXend(int nXend) {
-        this.nXend = nXend;
+    public void setxEnd(int xEnd) {
+        this.xEnd = xEnd;
     }
 
-    public int getnYend() {
-        return nYend;
+    public int getyEnd() {
+        return yEnd;
     }
 
-    public void setnYend(int nYend) {
-        this.nYend = nYend;
+    public void setyEnd(int yEnd) {
+        this.yEnd = yEnd;
     }
 
-    public int getnXwidth() {
-        return nXwidth;
+    public int getxWidth() {
+        return xWidth;
     }
 
-    public void setnXwidth(int nXwidth) {
-        this.nXwidth = nXwidth;
+    public void setxWidth(int xWidth) {
+        this.xWidth = xWidth;
     }
 
-    public int getnYheight() {
-        return nYheight;
+    public int getyHeight() {
+        return yHeight;
     }
 
-    public void setnYheight(int nYheight) {
-        this.nYheight = nYheight;
+    public void setyHeight(int yHeight) {
+        this.yHeight = yHeight;
     }
 
 }
