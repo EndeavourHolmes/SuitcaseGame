@@ -2,6 +2,7 @@ package com.example.koffer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Formattable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -23,7 +26,9 @@ public class PlayActivity extends AppCompatActivity {
 
     private boolean recalcSize;
     private double dwBigger;
-    private boolean gameOn;
+    private int score;
+    private boolean continueGameplay;
+    public ImageView actualImageView;
 
     private int xDiffEventPict;
     private int yDiffEventPict;
@@ -32,11 +37,11 @@ public class PlayActivity extends AppCompatActivity {
     private int xMarginCentrePict;
     private int yMarginCentrePict;
 
-    public List listPicturesOfPlayer = new ArrayList();
-    public List listPicturesOfNpc = new ArrayList();
+    public List<String> listPicturesOfPlayer = new ArrayList<>();
+    public List<String> listPicturesOfNpc = new ArrayList<>();
 
-    public List<ImageView> listImageViewObjects = new ArrayList();
-    public List<Pictures> listPictureObjects = new ArrayList();
+    public List<ImageView> listImageViewObjects = new ArrayList<>();
+    public List<Pictures> listPictureObjects = new ArrayList<>();
     public List<String> listNamePictures = new ArrayList<>();
     public List<String> listLeftPictures = new ArrayList<>();
 
@@ -89,77 +94,184 @@ public class PlayActivity extends AppCompatActivity {
             listPictureObjects.get(j).setyHeight(paramsForEveryPicture.height);
         }
 
-        // TODO: zuruecksetzten auf Original-Ort und Original-Groesse - Methode, wenn Spieler 2
-
-        // Variables: picture when clicked bigger
+        // Variables: picture when clicked bigger, scoring
         recalcSize = true;
         dwBigger = 1.2;
-
-        gameOn = true;
-
-        // Set on Touch Listener for every object with name
-        /*
-        for(int j = 0; j < listImageViewObjects.size(); j++){
-
-            listImageViewObjects.get(j).setOnTouchListener(movePicture(listNamePictures.get(j)));
-        }
-        */
+        score = 0;
+        continueGameplay = true;
 
         gamePlay();
     }
 
     public void gamePlay(){
-        if (gameOn){
-            playerGameplay();
-        }
-        else {
-            ((TextView)findViewById(R.id.WelcomeMessage)).setText("Else Zweig");
-            // Next round
-            npcGameplay();
-        }
-    }
-
-    public void playerGameplay(){
-        // Clear list before begin
-        listPicturesOfPlayer.clear();
-
+        // First round
         // Set on Touch Listener for every object with name
         for(int i = 0; i < listImageViewObjects.size(); i++){
             listImageViewObjects.get(i).setOnTouchListener(movePicture(listNamePictures.get(i)));
         }
 
-        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Player1");
-
+        playerGameplay();
     }
 
-    public void npcGameplay(){
+    public void playerGameplay(){
+        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Player1"); // Test
+
         // Clear list before begin
-        listPicturesOfNpc.clear();
+        listPicturesOfPlayer.clear();
+        resetAllPictures();
+        resetListLeftPictures();
 
-        ((TextView)findViewById(R.id.WelcomeMessage)).setText("NPC");
+        // SetOnTouchlistener switched ON
+        for(int i = 0; i < listImageViewObjects.size(); i++){
+            listImageViewObjects.get(i).setEnabled(true);
+        }
+    }
 
-        //Test TODO: Random einfuegen
+    public void checkPickedPicture(String pickedPicture){
+        listLeftPictures.remove(pickedPicture);
+        listPicturesOfPlayer.add(pickedPicture);
 
-        String testAuswahlNpc = listLeftPictures.get(0);
-        ((TextView)findViewById(R.id.ausgabe)).setText(listNamePictures.get(0));
+        String strAusgabe = "Player: ";
+        for(String testNPC: listPicturesOfPlayer){
+            strAusgabe += testNPC + ", ";
+        }
+        strAusgabe += "\nleft: ";
+        for(String testNPC: listLeftPictures){
+            strAusgabe += testNPC + ", ";
+        }
+        ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
 
-        for (int i=0; i < listNamePictures.size(); i++){
-            if (listNamePictures.get(i) == testAuswahlNpc) {
-                listImageViewObjects.get(i).bringToFront();
-                listImageViewObjects.get(i).setColorFilter(Color.argb(180, 255, 146, 146));
-                break;
+        // Comparison player's pictures with Npc's: Player has less pictures
+        if (listPicturesOfPlayer.size()<=listPicturesOfNpc.size()){
+            for (int i = 0; i < listPicturesOfPlayer.size(); i++){
+                if (listPicturesOfPlayer.get(i) != listPicturesOfNpc.get(i)){
+                    continueGameplay = false;
+                    ((TextView) findViewById(R.id.WelcomeMessage)).setText("Gameover"); // Test
+                    break;                                                                          // TODO: Spiel abbrechen
+                }
+            }
+        }
+        // Player has more pictures
+        else{
+            for (int i = 0; i < listPicturesOfNpc.size(); i++){
+                if (listPicturesOfPlayer.get(i) != listPicturesOfNpc.get(i)){
+                    continueGameplay = false;
+                    ((TextView) findViewById(R.id.WelcomeMessage)).setText("Gameover"); // Test
+                    break;                                                                          // TODO: Spiel abbrechen
+                }
             }
         }
 
-        // Next round
-        /*if (!(listLeftPictures.isEmpty())){
-            playerGameplay();
+        if(continueGameplay){
+            score = listPicturesOfPlayer.size();
         }
 
-         */
+        if (continueGameplay && (listPicturesOfPlayer.size() == (listPicturesOfNpc.size()+1))){
+            // Next round - at least one picture left
+            if (0<listLeftPictures.size()){
+                npcGameplay();
+            }
+            // Last Round: Player took last picture and NPC just repeated
+            else {
+                ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
+                ((TextView)findViewById(R.id.ausgabe)).setText("gewonnen");
+            }
+        }
+
+        // Last Round: NPC took last picture and player just repeated
+        if (continueGameplay && (listPicturesOfPlayer.size() == listPicturesOfNpc.size())){
+            // No pictures left
+            if (0==listLeftPictures.size()){
+                ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
+                ((TextView)findViewById(R.id.ausgabe)).setText("gewonnen");
+            }
+        }
     }
 
-    public void resetAllPictures(View v){
+    public void npcGameplay() {
+        ((TextView) findViewById(R.id.WelcomeMessage)).setText("NPC"); // Test
+
+        // SetOnTouchlistener switched OFF
+        for(int i = 0; i < listImageViewObjects.size(); i++){
+            listImageViewObjects.get(i).setEnabled(false);
+        }
+
+        // Clear list and reset before begin
+        listPicturesOfNpc.clear();
+        resetAllPictures();
+        resetListLeftPictures();
+
+        // Takes pictures of player first, followed by one which is left
+        for (int i = 0; i < (listPicturesOfPlayer.size()+1); i++) {
+            String choicePictureNpc = "";
+
+            if (i < listPicturesOfPlayer.size()){
+                choicePictureNpc = listPicturesOfPlayer.get(i);
+            }
+            else {
+                //TODO: Random einfuegen
+                choicePictureNpc = listLeftPictures.get(0);
+            }
+
+            for (int j = 0; j < listNamePictures.size(); j++) {
+                if (listNamePictures.get(j) == choicePictureNpc) {
+                    actualImageView = listImageViewObjects.get(j);
+                    highlightPicture(actualImageView);
+                    listPicturesOfNpc.add(choicePictureNpc);
+
+                    String strAusgabe = "NPC: ";
+                    for(String testNPC: listPicturesOfNpc){
+                        strAusgabe += testNPC + ", ";
+                    }
+                    ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
+
+                    actualImageView.setVisibility(View.INVISIBLE);
+
+                    /*
+                    // TODO: Animation anpassen
+
+                    ObjectAnimator animation = ObjectAnimator.ofFloat(actualImageView, "translationY", 1000f);
+                    animation.setDuration(2000);
+                    animation.start();
+
+                    actualImageView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            actualImageView.setVisibility(View.INVISIBLE);
+                        }
+                    }, 2000);
+
+                     */
+
+                    listLeftPictures.remove(choicePictureNpc);
+                    break;
+                }
+            }
+        }
+        // Next round
+        if (0<(listLeftPictures.size()+1)){
+            playerGameplay();
+        }
+        else {
+            ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
+        }
+    }
+
+    public void highlightPicture(ImageView imgV){
+        imgV.bringToFront();
+        imgV.setColorFilter(Color.argb(40, 255, 255, 0));
+        imgV.getLayoutParams().height = (int)(imgV.getLayoutParams().height*dwBigger);
+        imgV.getLayoutParams().width = (int)(imgV.getLayoutParams().width*dwBigger);
+    }
+
+    public void resetListLeftPictures(){
+        listLeftPictures.clear();
+        for (int i=0; i<listNamePictures.size();i++){
+            listLeftPictures.add(listNamePictures.get(i));
+        }
+    }
+
+    public void resetAllPictures(){
         for(int i = 0; i < listImageViewObjects.size(); i++) {
             RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams)listImageViewObjects.get(i).getLayoutParams();
             paramsForEveryPicture.leftMargin = listPictureObjects.get(i).getxOrigin();
@@ -169,32 +281,6 @@ public class PlayActivity extends AppCompatActivity {
             listImageViewObjects.get(i).setLayoutParams(paramsForEveryPicture);
             listImageViewObjects.get(i).setColorFilter(Color.argb(0, 0, 0, 0));
             listImageViewObjects.get(i).setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void checkPickedPicture(String removedPicture){
-        listLeftPictures.remove(removedPicture);
-        String strAusgabe = "";
-
-        for (int i = 0; i< listLeftPictures.size(); i++){
-            strAusgabe += listLeftPictures.get(i);
-            strAusgabe += ", ";
-        }
-
-        ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
-
-        // Set on touch listener switched off
-        for(int i = 0; i < listImageViewObjects.size(); i++){
-            listImageViewObjects.get(i).setEnabled(false);
-        }
-        gameOn = false; // TODO: noetig?
-        npcGameplay();
-    }
-
-    public void resetListLeftPictures(){
-        listLeftPictures.clear();
-        for (int i=0; i<listNamePictures.size();i++){
-            listLeftPictures.add(listNamePictures.get(i));
         }
     }
 
@@ -253,20 +339,12 @@ public class PlayActivity extends AppCompatActivity {
                                 ((suitcase.getyStart() < yMarginCentrePict) && (yMarginCentrePict < suitcase.getyEnd()))){
                             v.setVisibility(View.INVISIBLE); //GONE
 
-                            listPicturesOfPlayer.add(pictureName);
-                            String strAusgabe = "";
-
-                            for (int i = 0; i< listPicturesOfPlayer.size(); i++){
-                                strAusgabe += listPicturesOfPlayer.get(i);
-                                strAusgabe += "\n";
-                            }
-
-                            //((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe); // Kontrolle
                             checkPickedPicture(pictureName);
                             break;
+
                         }
 
-                        // Reset picture before highlighting
+                        // Reset picture
                         imgView.setColorFilter(Color.argb(0, 0, 0, 0));
                         if (!recalcSize){
                             paramsPicture.height = (int)(paramsPicture.height/ dwBigger);
@@ -274,6 +352,7 @@ public class PlayActivity extends AppCompatActivity {
                             v.setLayoutParams(paramsPicture);
                             recalcSize = true;
                         }
+                        break;
                 }
                 viewGrPlayground.invalidate();
                 return true;
