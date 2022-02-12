@@ -82,6 +82,84 @@
                 android:layout_marginTop="364dp"
                 app:srcCompat="@drawable/umbrella" />
 
+            <ImageView
+                android:id="@+id/imgBook"
+                android:layout_width="99dp"
+                android:layout_height="121dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="290dp"
+                android:layout_marginTop="79dp"
+                app:srcCompat="@drawable/book" />
+
+            <ImageView
+                android:id="@+id/imgClock"
+                android:layout_width="83dp"
+                android:layout_height="79dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="186dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/clock" />
+
+            <ImageView
+                android:id="@+id/imgFlower"
+                android:layout_width="98dp"
+                android:layout_height="107dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="163dp"
+                android:layout_marginTop="181dp"
+                app:srcCompat="@drawable/flower" />
+
+            <ImageView
+                android:id="@+id/imgHeart"
+                android:layout_width="65dp"
+                android:layout_height="73dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="107dp"
+                app:srcCompat="@drawable/heart" />
+
+            <ImageView
+                android:id="@+id/imgLamp"
+                android:layout_width="103dp"
+                android:layout_height="102dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/lamp" />
+
+            <ImageView
+                android:id="@+id/imgPaintingBird"
+                android:layout_width="116dp"
+                android:layout_height="91dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="273dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/paintingbird" />
+
+            <ImageView
+                android:id="@+id/imgPillow"
+                android:layout_width="83dp"
+                android:layout_height="77dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="298dp"
+                android:layout_marginTop="178dp"
+                app:srcCompat="@drawable/pillow" />
+
+            <ImageView
+                android:id="@+id/imgToothbrush"
+                android:layout_width="73dp"
+                android:layout_height="82dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="73dp"
+                android:layout_marginTop="160dp"
+                app:srcCompat="@drawable/toothbrush" />
+
 
         </RelativeLayout>
 

@@ -34,15 +34,15 @@ public class Settings extends AppCompatActivity {
                         chosenLevel = level;
                         break;
                     case 2:
-                        textViewLevel.setText("Level 2 \n\nChoose between 10 items to put into your suitcase.");
+                        textViewLevel.setText("Level 2 \n\nChoose between 8 items to put into your suitcase.");
                         chosenLevel = level;
                         break;
                     case 3:
-                        textViewLevel.setText("Level 3 \n\nChoose between 15 items to put into your suitcase.");
+                        textViewLevel.setText("Level 3 \n\nChoose between 10 items to put into your suitcase.");
                         chosenLevel = level;
                         break;
                     case 4:
-                        textViewLevel.setText("Level 4 \n\nChoose between 20 items to put into your suitcase.");
+                        textViewLevel.setText("Level 4 \n\nChoose between 12 items to put into your suitcase.");
                         chosenLevel = level;
                         break;
                 }

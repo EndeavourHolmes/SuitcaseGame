@@ -72,8 +72,17 @@ public class PlayActivity extends AppCompatActivity {
         listImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgNightTable));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgUmbrella));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgFlower));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgHeart));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgClock));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgToothbrush));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgPaintingBird));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgBook));
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgPillow));
 
-        /* //TODO: aktivieren, wenn 20 Bilder im Spiel
+
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgLamp));
+
         switch (Pictures.level){
             case 1:
                 for (int i = 4; i < listImageViewObjects.size(); i++){
@@ -81,19 +90,19 @@ public class PlayActivity extends AppCompatActivity {
                 }
                 break;
             case 2:
-                for (int i = 9; i < listImageViewObjects.size(); i++){
+                for (int i = 7; i < listImageViewObjects.size(); i++){
                     listImageViewObjects.get(i).setVisibility(View.GONE);
                 }
                 break;
             case 3:
-                for (int i = 14; i < listImageViewObjects.size(); i++){
+                for (int i = 9; i < listImageViewObjects.size(); i++){
                     listImageViewObjects.get(i).setVisibility(View.GONE);
                 }
                 break;
             case 4:
                 break;
         }
-        */
+
 
         // Set name for pictures // TODO: Anpassen an Level/ Bildanzahl
         String namePicture = "";
@@ -141,6 +150,7 @@ public class PlayActivity extends AppCompatActivity {
         btnStartTimer.setEnabled(true);
     }
 
+    // TODO: Bugfix: Start -> Ende -> Start -> NPC springt nicht an
     public void startGame(View v){
         //Start timer and game
         Toast.makeText(this,"Start",Toast.LENGTH_LONG).show();
