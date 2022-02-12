@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class ShowRankingActivity extends AppCompatActivity {
 
     @Override
@@ -12,10 +14,14 @@ public class ShowRankingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ranking);
 
-        /*
-        userListe.add("Nutzername");
-        ((TextView)findViewById(R.id.textView3)).setText((String)userListe.get(0));
-        */
+        SQLdb dbHelper = new SQLdb(ShowRankingActivity.this);
+        List<String> listeRanking = dbHelper.getRanking();
 
+        String ausgabe = "";
+        for (String zeile : listeRanking) {
+            ausgabe += zeile + "\n";
+        }
+
+        ((TextView)findViewById(R.id.textViewRanking)).setText("Ranking: \n\n" + ausgabe); // Test
     }
 }

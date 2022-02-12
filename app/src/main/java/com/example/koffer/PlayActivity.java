@@ -31,6 +31,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private RelativeLayout viewGrPlayground; //ViewGroup viewGrSpielwiese;
     private  Pictures suitcase = new Pictures();
+    private String stUserName;
 
     private boolean recalcSize;
     private double dwBigger;
@@ -64,10 +65,10 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-        Intent i = getIntent();
+        Intent i_userName = getIntent();
 
-        // Details shown on top
-        String stUserName = i.getStringExtra("UserName");
+        // Details shown on top TODO: anpassen
+        stUserName = i_userName.getStringExtra("UserName");
         ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
 
         // Playground and images referred to objects
@@ -152,7 +153,7 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     public void startGame(View v){
-        //Start timer and game
+        //Start timer, game and create db
 
         Toast.makeText(this,"Start",Toast.LENGTH_LONG).show();
 
@@ -189,8 +190,11 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         neededTime = neededTime/1000;
-        ((TextView)findViewById(R.id.ausgabe)).setText("Needed Time in s: " + neededTime);
 
+        int n_neededTime = (int) neededTime;
+
+        SQLdb dbHelper = new SQLdb(PlayActivity.this);
+        boolean successDB = dbHelper.addOne(stUserName, score, n_neededTime);
     }
 
     public void gamePlay(){
