@@ -79,30 +79,9 @@ public class PlayActivity extends AppCompatActivity {
         listImageViewObjects.add((ImageView) findViewById(R.id.imgPaintingBird));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgBook));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgPillow));
-
-
         listImageViewObjects.add((ImageView) findViewById(R.id.imgLamp));
 
-        switch (Pictures.level){
-            case 1:
-                for (int i = 4; i < listImageViewObjects.size(); i++){
-                    listImageViewObjects.get(i).setVisibility(View.GONE);
-                }
-                break;
-            case 2:
-                for (int i = 7; i < listImageViewObjects.size(); i++){
-                    listImageViewObjects.get(i).setVisibility(View.GONE);
-                }
-                break;
-            case 3:
-                for (int i = 9; i < listImageViewObjects.size(); i++){
-                    listImageViewObjects.get(i).setVisibility(View.GONE);
-                }
-                break;
-            case 4:
-                break;
-        }
-
+        adjustNumberOfImagesToLevel();
 
         // Set name for pictures // TODO: Anpassen an Level/ Bildanzahl
         String namePicture = "";
@@ -201,6 +180,29 @@ public class PlayActivity extends AppCompatActivity {
         SQLdb dbHelper = new SQLdb(PlayActivity.this);
         boolean successDB = dbHelper.addOne(stUserName, score, n_neededTime);
     }
+
+    public void adjustNumberOfImagesToLevel(){
+        switch (Pictures.level){
+            case 1:
+                for (int i = 4; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 2:
+                for (int i = 7; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 3:
+                for (int i = 9; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 4:
+                break;
+        }
+    }
+
 
     public void playerGameplay(){
         ((TextView)findViewById(R.id.Message)).setText(stUserName);
@@ -310,11 +312,13 @@ public class PlayActivity extends AppCompatActivity {
                     highlightPicture(actualImageView);
                     listPicturesOfNpc.add(choicePictureNpc);
 
+                    /*
                     String strAusgabe = "NPC: ";
                     for(String testNPC: listPicturesOfNpc){
                         strAusgabe += testNPC + ", ";
                     }
-                    ((TextView)findViewById(R.id.ausgabe)).setText(strAusgabe);
+                    */
+                    ((TextView)findViewById(R.id.ausgabe)).setText("NPC-choice:" + choicePictureNpc);
 
                     actualImageView.setVisibility(View.INVISIBLE);
 
@@ -373,6 +377,7 @@ public class PlayActivity extends AppCompatActivity {
             listImageViewObjects.get(i).setLayoutParams(paramsForEveryPicture);
             listImageViewObjects.get(i).setColorFilter(Color.argb(0, 0, 0, 0));
             listImageViewObjects.get(i).setVisibility(View.VISIBLE);
+            adjustNumberOfImagesToLevel();
         }
     }
 
