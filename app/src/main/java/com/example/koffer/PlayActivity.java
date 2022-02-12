@@ -6,18 +6,26 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnTouchListener;
 import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Formattable;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import android.app.Activity;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -45,6 +53,13 @@ public class PlayActivity extends AppCompatActivity {
     public List<String> listNamePictures = new ArrayList<>();
     public List<String> listLeftPictures = new ArrayList<>();
 
+    // Timer
+    private boolean running;
+    private Chronometer chronometerTimer;
+    private long neededTime;
+    private Button btnStopTimer;
+    private Button btnStartTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +72,31 @@ public class PlayActivity extends AppCompatActivity {
 
         // Playground and images referred to objects
         viewGrPlayground = (RelativeLayout) findViewById(R.id.layoutPlayground);
+
+        // TODO: Einstellungen 5,10,15,20
+        // je nach Einstellung 5, 10 ... Objekte adden switch?
+        // restliche img's GONE???
+        /*
+        switch
+        case
+        level 1 list.add(1)
+        level 2 list.add(1,2)
+        level 3 list.add(1,2,3)
+        level 4 list.add(1,2,3,4)
+
+        for int listItem list {
+            switch
+                case 1: 5 images hinzugefuegt
+                case 2: 5 mehr - zweiter Durchlauf
+                case 3: 5 mehr - dritter Druchlauf
+        }
+
+        switch
+            case 1: 15 view ODER? imageviews gone
+            case 2: 10 ~
+            case 3: 5 ~
+
+         */
 
         listImageViewObjects.add((ImageView) findViewById(R.id.imgHat)); // TODO: Methode schreiben
         listImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
@@ -100,7 +140,57 @@ public class PlayActivity extends AppCompatActivity {
         score = 0;
         continueGameplay = true;
 
+        // Variables Timer/ Chronometer
+        running = false;
+        chronometerTimer = findViewById(R.id.chronometerTimer);
+        btnStopTimer = findViewById(R.id.btnEndGame);
+        btnStartTimer = findViewById(R.id.btnStartGame);
+        btnStopTimer.setEnabled(false);
+        btnStartTimer.setEnabled(true);
+
+        gamePlay(); // TODO: entfernen, wenn ueber StartButton begonnen
+    }
+
+    public void startGame(View v){
+        //Start timer and game
+
+        Toast.makeText(this,"Start",Toast.LENGTH_LONG).show();
+
+        neededTime = 0;
+        if (!running){
+            chronometerTimer.setBase(SystemClock.elapsedRealtime());
+            chronometerTimer.start();
+            running = true;
+            btnStopTimer.setEnabled(true);
+            v.setEnabled(false);
+        }
+
+        /* ! "gamePlay" bevor Entkommentieren aus "on Create activity" rausnehmen
+
         gamePlay();
+
+        // Clear lists before begin
+        listPicturesOfPlayer.clear();
+        listPicturesOfNpc.clear();
+        resetAllPictures();
+        resetListLeftPictures();
+        */
+
+    }
+
+    public void endGame(View v){
+        // End Timer, save score
+        if (running){
+            chronometerTimer.stop();
+            neededTime = SystemClock.elapsedRealtime() - chronometerTimer.getBase();
+            running = false;
+            btnStartTimer.setEnabled(true);
+            v.setEnabled(false);
+        }
+
+        neededTime = neededTime/1000;
+        ((TextView)findViewById(R.id.ausgabe)).setText("Needed Time in s: " + neededTime);
+
     }
 
     public void gamePlay(){

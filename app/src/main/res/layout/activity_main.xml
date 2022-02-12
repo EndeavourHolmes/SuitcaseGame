@@ -11,19 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowRanking"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintTop_toBottomOf="@+id/InputUsername" />
 
     <TextView
         android:id="@+id/TitelUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="84dp"
         android:text="Username"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -56,11 +54,11 @@
         android:id="@+id/btnShowRanking"
         android:layout_width="183dp"
         android:layout_height="48dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#57BBE8"
         android:onClick="showRanking"
         android:text="Actual Ranking"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
@@ -68,10 +66,11 @@
         android:id="@+id/btnShowSettings"
         android:layout_width="183dp"
         android:layout_height="48dp"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#57BBE8"
+        android:backgroundTint="#5776E8"
+        android:onClick="showSettings"
         android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnShowRanking" />
 
@@ -79,11 +78,23 @@
         android:id="@+id/ImageSuitcaseMain"
         android:layout_width="414dp"
         android:layout_height="301dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnShowSettings"
+        app:layout_constraintTop_toBottomOf="@+id/btnGameManual"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/suitcaseumbreallahat" />
+
+    <Button
+        android:id="@+id/btnGameManual"
+        android:layout_width="183dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#7D50CD"
+        android:onClick="showGameManual"
+        android:text="Game Manual"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnShowSettings" />
 </androidx.constraintlayout.widget.ConstraintLayout>

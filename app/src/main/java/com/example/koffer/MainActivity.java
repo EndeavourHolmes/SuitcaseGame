@@ -50,4 +50,15 @@ public class MainActivity extends AppCompatActivity {
         Intent i_Ranking = new Intent(this, ShowRankingActivity.class);
         startActivity(i_Ranking);
     }
+
+    public void showGameManual(View v){
+        Intent i_GameManual = new Intent(this, GameManual.class);
+        startActivity(i_GameManual);
+    }
+
+    public void showSettings(View v){
+        Intent i_Settings = new Intent(this, Settings.class);
+        startActivity(i_Settings);
+    }
+
 }

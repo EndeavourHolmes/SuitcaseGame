@@ -7,15 +7,11 @@
     tools:context=".PlayActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="397dp"
-        android:layout_height="628dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="389dp"
+        android:layout_height="688dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
 
         <RelativeLayout
@@ -30,7 +26,9 @@
                 android:id="@+id/imgBedroomBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
                 app:srcCompat="@drawable/bedroom" />
 
@@ -92,11 +90,12 @@
             android:layout_width="370dp"
             android:layout_height="109dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPlayground">
+            app:layout_constraintTop_toBottomOf="@+id/layoutPlayground"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/ausgabe"
@@ -113,33 +112,73 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="395dp"
-        android:layout_height="72dp"
+        android:layout_width="411dp"
+        android:layout_height="77dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/WelcomeMessage"
-            android:layout_width="218dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="28dp"
+            android:layout_width="160dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:text="Hello"
-            android:textSize="25dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTimer"
+            app:layout_constraintEnd_toStartOf="@+id/btnEndGame"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btnStartGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:onClick="startGame"
+            android:text="Start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEndGame"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.517" />
+
+        <TextView
+            android:id="@+id/textViewTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Timer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnEndGame"
+            app:layout_constraintHorizontal_bias="0.067"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Chronometer
+            android:id="@+id/chronometerTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnStartGame"
+            app:layout_constraintStart_toEndOf="@+id/textViewTimer"
+            app:layout_constraintTop_toBottomOf="@+id/WelcomeMessage" />
 
         <Button
             android:id="@+id/btnEndGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Test"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#AFAEAE"
+            android:onClick="endGame"
+            android:text="End Game"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.517" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

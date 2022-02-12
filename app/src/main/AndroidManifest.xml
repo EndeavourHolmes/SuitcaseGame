@@ -10,10 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Koffer">
         <activity
+            android:name=".GameManual"
+            android:exported="false"
+            android:label="Game Manual"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Settings"
+            android:exported="false"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ShowRankingActivity"
             android:exported="false"
             android:label="Ranking"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PlayActivity"
             android:exported="false" />
