@@ -120,19 +120,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/WelcomeMessage"
+            android:id="@+id/Message"
             android:layout_width="160dp"
-            android:layout_height="31dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="24dp"
             android:text="Hello"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewTimer"
-            app:layout_constraintEnd_toStartOf="@+id/btnEndGame"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnStartGame"
+            app:layout_constraintHorizontal_bias="0.842"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.471" />
 
         <Button
             android:id="@+id/btnStartGame"
@@ -146,26 +144,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.517" />
 
+
         <TextView
-            android:id="@+id/textViewTimer"
+            android:id="@+id/textViewLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="Timer"
+            android:text="Level"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEndGame"
-            app:layout_constraintHorizontal_bias="0.067"
-            app:layout_constraintStart_toStartOf="parent" />
-
+            app:layout_constraintEnd_toStartOf="@+id/chronometerTimer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Message" />
 
         <Chronometer
             android:id="@+id/chronometerTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnStartGame"
-            app:layout_constraintStart_toEndOf="@+id/textViewTimer"
-            app:layout_constraintTop_toBottomOf="@+id/WelcomeMessage" />
+            app:layout_constraintEnd_toEndOf="@+id/Message"
+            app:layout_constraintTop_toBottomOf="@+id/Message"
+            app:layout_constraintVertical_bias="0.545" />
 
         <Button
             android:id="@+id/btnEndGame"

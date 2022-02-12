@@ -2,11 +2,9 @@ package com.example.koffer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -20,16 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Formattable;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-
-import android.app.Activity;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private RelativeLayout viewGrPlayground; //ViewGroup viewGrSpielwiese;
+    private RelativeLayout viewGrPlayground; //ViewGroup
     private  Pictures suitcase = new Pictures();
     private String stUserName;
 
@@ -67,44 +60,42 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         Intent i_userName = getIntent();
 
-        // Details shown on top TODO: anpassen
+        // Details shown on top
         stUserName = i_userName.getStringExtra("UserName");
-        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Hello " + stUserName);
+        ((TextView)findViewById(R.id.Message)).setText("Hello " + stUserName);
+        ((TextView)findViewById(R.id.textViewLevel)).setText("Level: " + Pictures.level);
 
         // Playground and images referred to objects
         viewGrPlayground = (RelativeLayout) findViewById(R.id.layoutPlayground);
 
-        // TODO: Einstellungen 5,10,15,20
-        // je nach Einstellung 5, 10 ... Objekte adden switch?
-        // restliche img's GONE???
-        /*
-        switch
-        case
-        level 1 list.add(1)
-        level 2 list.add(1,2)
-        level 3 list.add(1,2,3)
-        level 4 list.add(1,2,3,4)
-
-        for int listItem list {
-            switch
-                case 1: 5 images hinzugefuegt
-                case 2: 5 mehr - zweiter Durchlauf
-                case 3: 5 mehr - dritter Druchlauf
-        }
-
-        switch
-            case 1: 15 view ODER? imageviews gone
-            case 2: 10 ~
-            case 3: 5 ~
-
-         */
-
-        listImageViewObjects.add((ImageView) findViewById(R.id.imgHat)); // TODO: Methode schreiben
+        listImageViewObjects.add((ImageView) findViewById(R.id.imgHat)); // TODO: Methode schreiben, anpassen an Level
         listImageViewObjects.add((ImageView) findViewById(R.id.imgTeddy));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgNightTable));
         listImageViewObjects.add((ImageView) findViewById(R.id.imgUmbrella));
 
-        // Set name for pictures
+        /* //TODO: aktivieren, wenn 20 Bilder im Spiel
+        switch (Pictures.level){
+            case 1:
+                for (int i = 4; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 2:
+                for (int i = 9; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 3:
+                for (int i = 14; i < listImageViewObjects.size(); i++){
+                    listImageViewObjects.get(i).setVisibility(View.GONE);
+                }
+                break;
+            case 4:
+                break;
+        }
+        */
+
+        // Set name for pictures // TODO: Anpassen an Level/ Bildanzahl
         String namePicture = "";
         for (ImageView imgV : listImageViewObjects) {
             namePicture = imgV.toString();
@@ -125,7 +116,7 @@ public class PlayActivity extends AppCompatActivity {
         suitcase.setxEnd((int)((suitcase.getxStart()+suitcase.getxWidth())*0.9));
         suitcase.setyEnd((int)((suitcase.getyStart()+suitcase.getyHeight())*0.9));
 
-        // For every Image-object a picture-object with origin coordinates and size
+        // For every Image-object a picture-object with origin coordinates and size // TODO: Anpassen an Level/ Bildanzahl
         for(int j = 0; j < listImageViewObjects.size(); j++){
             listPictureObjects.add(new Pictures());
             RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams)listImageViewObjects.get(j).getLayoutParams();
@@ -148,13 +139,10 @@ public class PlayActivity extends AppCompatActivity {
         btnStartTimer = findViewById(R.id.btnStartGame);
         btnStopTimer.setEnabled(false);
         btnStartTimer.setEnabled(true);
-
-        gamePlay(); // TODO: entfernen, wenn ueber StartButton begonnen
     }
 
     public void startGame(View v){
-        //Start timer, game and create db
-
+        //Start timer and game
         Toast.makeText(this,"Start",Toast.LENGTH_LONG).show();
 
         neededTime = 0;
@@ -166,38 +154,12 @@ public class PlayActivity extends AppCompatActivity {
             v.setEnabled(false);
         }
 
-        /* ! "gamePlay" bevor Entkommentieren aus "on Create activity" rausnehmen
-
-        gamePlay();
-
         // Clear lists before begin
         listPicturesOfPlayer.clear();
         listPicturesOfNpc.clear();
         resetAllPictures();
         resetListLeftPictures();
-        */
 
-    }
-
-    public void endGame(View v){
-        // End Timer, save score
-        if (running){
-            chronometerTimer.stop();
-            neededTime = SystemClock.elapsedRealtime() - chronometerTimer.getBase();
-            running = false;
-            btnStartTimer.setEnabled(true);
-            v.setEnabled(false);
-        }
-
-        neededTime = neededTime/1000;
-
-        int n_neededTime = (int) neededTime;
-
-        SQLdb dbHelper = new SQLdb(PlayActivity.this);
-        boolean successDB = dbHelper.addOne(stUserName, score, n_neededTime);
-    }
-
-    public void gamePlay(){
         // First round
         // Set on Touch Listener for every object with name
         for(int i = 0; i < listImageViewObjects.size(); i++){
@@ -207,8 +169,31 @@ public class PlayActivity extends AppCompatActivity {
         playerGameplay();
     }
 
+    // When user stops game manually
+    public void endGame(View v){
+        endGame();
+    }
+
+    // Game stops automatically when an error is made or no pictures are left
+    public void endGame(){
+        // End Timer, save score
+        if (running){
+            chronometerTimer.stop();
+            neededTime = SystemClock.elapsedRealtime() - chronometerTimer.getBase();
+            running = false;
+            btnStartTimer.setEnabled(true);
+            btnStopTimer.setEnabled(false);
+        }
+
+        neededTime = neededTime/1000;
+        int n_neededTime = (int) neededTime;
+
+        SQLdb dbHelper = new SQLdb(PlayActivity.this);
+        boolean successDB = dbHelper.addOne(stUserName, score, n_neededTime);
+    }
+
     public void playerGameplay(){
-        ((TextView)findViewById(R.id.WelcomeMessage)).setText("Player1"); // Test
+        ((TextView)findViewById(R.id.Message)).setText(stUserName);
 
         // Clear list before begin
         listPicturesOfPlayer.clear();
@@ -240,8 +225,9 @@ public class PlayActivity extends AppCompatActivity {
             for (int i = 0; i < listPicturesOfPlayer.size(); i++){
                 if (listPicturesOfPlayer.get(i) != listPicturesOfNpc.get(i)){
                     continueGameplay = false;
-                    ((TextView) findViewById(R.id.WelcomeMessage)).setText("Gameover"); // Test
-                    break;                                                                          // TODO: Spiel abbrechen
+                    ((TextView) findViewById(R.id.Message)).setText("Gameover");
+                    endGame();
+                    break;
                 }
             }
         }
@@ -250,8 +236,9 @@ public class PlayActivity extends AppCompatActivity {
             for (int i = 0; i < listPicturesOfNpc.size(); i++){
                 if (listPicturesOfPlayer.get(i) != listPicturesOfNpc.get(i)){
                     continueGameplay = false;
-                    ((TextView) findViewById(R.id.WelcomeMessage)).setText("Gameover"); // Test
-                    break;                                                                          // TODO: Spiel abbrechen
+                    ((TextView) findViewById(R.id.Message)).setText("Gameover");
+                    endGame();
+                    break;
                 }
             }
         }
@@ -267,8 +254,8 @@ public class PlayActivity extends AppCompatActivity {
             }
             // Last Round: Player took last picture and NPC just repeated
             else {
-                ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
-                ((TextView)findViewById(R.id.ausgabe)).setText("gewonnen");
+                ((TextView) findViewById(R.id.Message)).setText("End of Game. You win!");
+                endGame();
             }
         }
 
@@ -276,14 +263,14 @@ public class PlayActivity extends AppCompatActivity {
         if (continueGameplay && (listPicturesOfPlayer.size() == listPicturesOfNpc.size())){
             // No pictures left
             if (0==listLeftPictures.size()){
-                ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
-                ((TextView)findViewById(R.id.ausgabe)).setText("gewonnen");
+                ((TextView) findViewById(R.id.Message)).setText("End of Game. You win!");
+                endGame();
             }
         }
     }
 
     public void npcGameplay() {
-        ((TextView) findViewById(R.id.WelcomeMessage)).setText("NPC"); // Test
+        ((TextView) findViewById(R.id.Message)).setText("NPC");
 
         // SetOnTouchlistener switched OFF
         for(int i = 0; i < listImageViewObjects.size(); i++){
@@ -347,7 +334,8 @@ public class PlayActivity extends AppCompatActivity {
             playerGameplay();
         }
         else {
-            ((TextView) findViewById(R.id.WelcomeMessage)).setText("End of Game"); // Test
+            ((TextView) findViewById(R.id.Message)).setText("End of Game");
+            endGame(); // Test
         }
     }
 
@@ -452,22 +440,6 @@ public class PlayActivity extends AppCompatActivity {
                 return true;
             }
         };
-
-
         //protected void onVisibilityChanged (View changedView, int visibility)
     }
-
-
-
-    /*
-        public void beendeSpiel (View v){
-        if (userListe.get(0) == "leer"){
-            userListe.set(0,"Nutzername");
-        }
-        else{
-            userListe.set(0,"Nr.2");
-        }
-        }
-        */
-
 }

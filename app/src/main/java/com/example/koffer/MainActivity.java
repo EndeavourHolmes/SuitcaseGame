@@ -15,13 +15,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public List userListe = new ArrayList();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userListe.add("leer");
+        Pictures.level = 2;
     }
 
     public void startGame(View v){
@@ -43,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showRanking(View v){
-        /*
-        ((TextView)findViewById(R.id.textView3)).setText((String)userListe.get(0));
-        */
-
         Intent i_Ranking = new Intent(this, ShowRankingActivity.class);
         startActivity(i_Ranking);
     }

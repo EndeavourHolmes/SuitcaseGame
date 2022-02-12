@@ -10,9 +10,13 @@
         android:id="@+id/textViewRanking"
         android:layout_width="366dp"
         android:layout_height="671dp"
+        android:lineSpacingExtra="10sp"
         android:text="Ranking Liste"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.57" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,8 @@ public class SQLdb extends SQLiteOpenHelper {
     public List<String> getRanking(){
         List<String> returnList = new ArrayList<>();
 
-        String queryString = "SELECT * FROM " + RANKING_TABLE;
+        //String queryString = "SELECT * FROM " + RANKING_TABLE; TODO: db begrenzen
+        String queryString = "SELECT * FROM " + RANKING_TABLE + " ORDER BY " + COLUMN_SCORE + " DESC, " + COLUMN_NEEDEDTIME + " ASC";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(queryString, null);

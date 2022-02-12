@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
 
+    private int chosenLevel;
     SeekBar seekbarLevel;
     TextView textViewLevel;
 
@@ -19,6 +20,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        chosenLevel = 2;
         seekbarLevel = (SeekBar)findViewById((R.id.seekBarLevel));
         textViewLevel = ((TextView)findViewById(R.id.textViewSeekbar));
 
@@ -29,15 +31,19 @@ public class Settings extends AppCompatActivity {
                 switch (level){
                     case 1:
                         textViewLevel.setText("Level 1 \n\nChoose between 5 items to put into your suitcase.");
+                        chosenLevel = level;
                         break;
                     case 2:
                         textViewLevel.setText("Level 2 \n\nChoose between 10 items to put into your suitcase.");
+                        chosenLevel = level;
                         break;
                     case 3:
                         textViewLevel.setText("Level 3 \n\nChoose between 15 items to put into your suitcase.");
+                        chosenLevel = level;
                         break;
                     case 4:
                         textViewLevel.setText("Level 4 \n\nChoose between 20 items to put into your suitcase.");
+                        chosenLevel = level;
                         break;
                 }
 
@@ -57,6 +63,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void saveLevel(View v){
+        Pictures.level = chosenLevel;
         Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
     }
 

@@ -12,6 +12,7 @@ public class Pictures {
     private int yEnd;
     private int xWidth;
     private int yHeight;
+    static int level;
 
     public int getxOrigin() {
         return xOrigin;

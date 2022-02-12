@@ -22,6 +22,6 @@ public class ShowRankingActivity extends AppCompatActivity {
             ausgabe += zeile + "\n";
         }
 
-        ((TextView)findViewById(R.id.textViewRanking)).setText("Ranking: \n\n" + ausgabe); // Test
+        ((TextView)findViewById(R.id.textViewRanking)).setText("\n" + ausgabe); // TODO: Anzeige anpassen
     }
 }
