@@ -103,8 +103,8 @@ public class PlayActivity extends AppCompatActivity {
         suitcase.setyStart(paramsSuitcase.topMargin);
         suitcase.setxWidth(paramsSuitcase.width);
         suitcase.setyHeight(paramsSuitcase.height);
-        suitcase.setxEnd((int)((suitcase.getxStart()+suitcase.getxWidth())*0.9));
-        suitcase.setyEnd((int)((suitcase.getyStart()+suitcase.getyHeight())*0.9));
+        suitcase.setxEnd(suitcase.getxStart()+suitcase.getxWidth());
+        suitcase.setyEnd(suitcase.getyStart()+suitcase.getyHeight());
 
         // For every Image-object a picture-object with origin coordinates and size // TODO: Anpassen an Level/ Bildanzahl
         for(int j = 0; j < listImageViewObjects.size(); j++){
@@ -150,6 +150,7 @@ public class PlayActivity extends AppCompatActivity {
         listPicturesOfNpc.clear();
         resetAllPictures();
         resetListLeftPictures();
+        score = 0;
 
         // First round
         // Set on Touch Listener for every object with name
@@ -258,7 +259,9 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         if(continueGameplay){
-            score = listPicturesOfPlayer.size();
+            if (score<listPicturesOfPlayer.size()){
+                score = listPicturesOfPlayer.size();
+            }
         }
 
         if (continueGameplay && (listPicturesOfPlayer.size() == (listPicturesOfNpc.size()+1))){
