@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Pictures.level = 2;
+        if (Pictures.level==0){
+            Pictures.level = 2;
+        }
     }
 
     public void startGame(View v){

@@ -83,14 +83,16 @@ public class PlayActivity extends AppCompatActivity {
 
         adjustNumberOfImagesToLevel();
 
-        // Set name for pictures // TODO: Anpassen an Level/ Bildanzahl
+        // Set name for pictures
         String namePicture = "";
         for (ImageView imgV : listImageViewObjects) {
-            namePicture = imgV.toString();
-            namePicture = namePicture.substring(namePicture.indexOf("img") + 3);
-            namePicture = namePicture.substring(0, namePicture.indexOf("}"));
-            listNamePictures.add(namePicture);
-            listLeftPictures.add(namePicture);
+            if (imgV.getVisibility()!=View.GONE){
+                namePicture = imgV.toString();
+                namePicture = namePicture.substring(namePicture.indexOf("img") + 3);
+                namePicture = namePicture.substring(0, namePicture.indexOf("}"));
+                listNamePictures.add(namePicture);
+                listLeftPictures.add(namePicture);
+            }
         }
 
         // Suitcase-object
@@ -151,7 +153,7 @@ public class PlayActivity extends AppCompatActivity {
 
         // First round
         // Set on Touch Listener for every object with name
-        for(int i = 0; i < listImageViewObjects.size(); i++){
+        for(int i = 0; i < listLeftPictures.size(); i++){
             listImageViewObjects.get(i).setOnTouchListener(movePicture(listNamePictures.get(i)));
         }
 
@@ -184,17 +186,17 @@ public class PlayActivity extends AppCompatActivity {
     public void adjustNumberOfImagesToLevel(){
         switch (Pictures.level){
             case 1:
-                for (int i = 4; i < listImageViewObjects.size(); i++){
+                for (int i = 5; i < listImageViewObjects.size(); i++){
                     listImageViewObjects.get(i).setVisibility(View.GONE);
                 }
                 break;
             case 2:
-                for (int i = 7; i < listImageViewObjects.size(); i++){
+                for (int i = 8; i < listImageViewObjects.size(); i++){
                     listImageViewObjects.get(i).setVisibility(View.GONE);
                 }
                 break;
             case 3:
-                for (int i = 9; i < listImageViewObjects.size(); i++){
+                for (int i = 10; i < listImageViewObjects.size(); i++){
                     listImageViewObjects.get(i).setVisibility(View.GONE);
                 }
                 break;
