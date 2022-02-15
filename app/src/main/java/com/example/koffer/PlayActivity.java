@@ -423,10 +423,15 @@ public class PlayActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_MOVE:
                         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                                 v.getLayoutParams();
-                        layoutParams.leftMargin = nXevent - xDiffEventPict;
-                        layoutParams.topMargin = nYevent - yDiffEventPict;
-                        layoutParams.rightMargin = 0;
-                        layoutParams.bottomMargin = 0;
+                        if (((nXevent - xDiffEventPict) > 0) && ((nXevent - xDiffEventPict + layoutParams.width) < viewGrPlayground.getWidth())){
+                            layoutParams.leftMargin = nXevent - xDiffEventPict;
+                        }
+                        if (((nYevent - yDiffEventPict) > 0) && ((nYevent - yDiffEventPict + layoutParams.height) < viewGrPlayground.getHeight())){
+                            layoutParams.topMargin = nYevent - yDiffEventPict;
+                        }
+                        //layoutParams.rightMargin = 0;
+                        //layoutParams.bottomMargin = 0;
+
                         v.setLayoutParams(layoutParams);
                         break;
 
