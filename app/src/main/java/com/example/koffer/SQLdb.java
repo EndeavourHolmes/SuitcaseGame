@@ -45,9 +45,11 @@ public class SQLdb extends SQLiteOpenHelper {
 
         long insert = db.insert(RANKING_TABLE,null , cv);
         if (insert == -1){
+            db.close();
             return false;
         }
         else {
+            db.close();
             return true;
         }
     }
@@ -84,5 +86,13 @@ public class SQLdb extends SQLiteOpenHelper {
         db.close();
 
         return returnList;
+    }
+
+    public void deleteAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM " + RANKING_TABLE;
+
+        db.execSQL(queryString);
+        db.close();
     }
 }

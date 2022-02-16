@@ -3,11 +3,12 @@ package com.example.koffer;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class ShowRankingActivity extends AppCompatActivity {
+public class ShowRankingActivity extends AppCompatActivity implements RequestDeleteRanking.RequestDeleteRankingListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +24,25 @@ public class ShowRankingActivity extends AppCompatActivity {
         }
 
         ((TextView)findViewById(R.id.textViewRanking)).setText("\n" + ausgabe); // TODO: Anzeige anpassen
+    }
+
+    public void clearTable(View v){
+        RequestDeleteRanking requestDeleteRanking = new RequestDeleteRanking();
+        requestDeleteRanking.show(getSupportFragmentManager(), "example dialog"); // TODO: anpassen
+    }
+
+    @Override
+    public void applyDelete() {
+        SQLdb dbHelper = new SQLdb(ShowRankingActivity.this);
+        dbHelper.deleteAll();
+
+        List<String> listeRanking = dbHelper.getRanking();
+
+        String ausgabe = "";
+        for (String zeile : listeRanking) {
+            ausgabe += zeile + "\n";
+        }
+
+        ((TextView)findViewById(R.id.textViewRanking)).setText("\n" + ausgabe);
     }
 }

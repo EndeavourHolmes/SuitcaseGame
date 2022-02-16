@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Pictures.level==0){
+
+        if (Pictures.level == 0){
             Pictures.level = 2;
         }
     }
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         int nUsernameLaenge = stUsername.length();
 
         if (nUsernameLaenge > 20){
-            Toast.makeText(this,"Please enter a Username of maximum 20 signs.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Please enter a Username of maximum 20 signs.",Toast.LENGTH_LONG).show(); // TODO: Fehlermeldung anpassen
         }
         else {
             if (nUsernameLaenge == 0){

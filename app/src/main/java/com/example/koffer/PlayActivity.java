@@ -131,7 +131,6 @@ public class PlayActivity extends AppCompatActivity {
         btnStartTimer.setEnabled(true);
     }
 
-    // TODO: Bugfix: Start -> Ende -> Start -> NPC springt nicht an
     public void startGame(View v){
         //Start timer and game
         Toast.makeText(this,"Start",Toast.LENGTH_LONG).show();
@@ -168,6 +167,12 @@ public class PlayActivity extends AppCompatActivity {
 
     // Game stops automatically when an error is made or no pictures are left
     public void endGame(){
+
+        // SetOnTouchlistener switched OFF
+        for(int i = 0; i < listImageViewObjects.size(); i++){
+            listImageViewObjects.get(i).setEnabled(false);
+        }
+
         // End Timer, save score
         if (running){
             chronometerTimer.stop();
