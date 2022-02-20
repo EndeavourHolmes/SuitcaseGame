@@ -150,6 +150,7 @@ public class PlayActivity extends AppCompatActivity {
         resetAllPictures();
         resetListLeftPictures();
         score = 0;
+        continueGameplay = true;
 
         // First round
         // Set on Touch Listener for every object with name
