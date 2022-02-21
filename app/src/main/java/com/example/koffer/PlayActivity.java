@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -116,11 +117,8 @@ public class PlayActivity extends AppCompatActivity {
             listPictureObjects.get(j).setyHeight(paramsForEveryPicture.height);
         }
 
-        // Variables: picture when clicked bigger, scoring
-        recalcSize = true;
+        // Variable: picture when clicked bigger
         dwBigger = 1.2;
-        score = 0;
-        continueGameplay = true;
 
         // Variables Timer/ Chronometer
         running = false;
@@ -149,8 +147,11 @@ public class PlayActivity extends AppCompatActivity {
         listPicturesOfNpc.clear();
         resetAllPictures();
         resetListLeftPictures();
+
+        // Reset variables
         score = 0;
         continueGameplay = true;
+        recalcSize = true;
 
         // First round
         // Set on Touch Listener for every object with name
@@ -313,8 +314,9 @@ public class PlayActivity extends AppCompatActivity {
                 choicePictureNpc = listPicturesOfPlayer.get(i);
             }
             else {
-                //TODO: Random einfuegen
-                choicePictureNpc = listLeftPictures.get(0);
+                Random rand = new Random();
+                int randomInt = rand.nextInt(listLeftPictures.size());
+                choicePictureNpc = listLeftPictures.get(randomInt);
             }
 
             for (int j = 0; j < listNamePictures.size(); j++) {
@@ -418,12 +420,10 @@ public class PlayActivity extends AppCompatActivity {
                         // Highlighting picture
                         imgView.bringToFront();
                         imgView.setColorFilter(Color.argb(40, 255, 255, 0));
-                        if (recalcSize){
-                            paramsPicture.height = (int)(paramsPicture.height* dwBigger);
-                            paramsPicture.width = (int)(paramsPicture.width* dwBigger);
-                            v.setLayoutParams(paramsPicture);
-                            recalcSize = false;
-                        }
+                        paramsPicture.height = (int)(paramsPicture.height* dwBigger);
+                        paramsPicture.width = (int)(paramsPicture.width* dwBigger);
+                        v.setLayoutParams(paramsPicture);
+                        recalcSize = false;
                         break;
 
                     case MotionEvent.ACTION_MOVE:
