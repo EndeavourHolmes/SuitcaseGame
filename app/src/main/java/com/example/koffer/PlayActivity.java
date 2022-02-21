@@ -107,14 +107,16 @@ public class PlayActivity extends AppCompatActivity {
         suitcase.setxEnd(suitcase.getxStart()+suitcase.getxWidth());
         suitcase.setyEnd(suitcase.getyStart()+suitcase.getyHeight());
 
-        // For every Image-object a picture-object with origin coordinates and size // TODO: Anpassen an Level/ Bildanzahl
+        // For every Image-object a picture-object with origin coordinates and size
         for(int j = 0; j < listImageViewObjects.size(); j++){
-            listPictureObjects.add(new Pictures());
-            RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams)listImageViewObjects.get(j).getLayoutParams();
-            listPictureObjects.get(j).setxOrigin(paramsForEveryPicture.leftMargin);
-            listPictureObjects.get(j).setyOrigin(paramsForEveryPicture.topMargin);
-            listPictureObjects.get(j).setxWidth(paramsForEveryPicture.width);
-            listPictureObjects.get(j).setyHeight(paramsForEveryPicture.height);
+            if (listImageViewObjects.get(j).getVisibility()!=View.GONE) {
+                listPictureObjects.add(new Pictures());
+                RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams) listImageViewObjects.get(j).getLayoutParams();
+                listPictureObjects.get(j).setxOrigin(paramsForEveryPicture.leftMargin);
+                listPictureObjects.get(j).setyOrigin(paramsForEveryPicture.topMargin);
+                listPictureObjects.get(j).setxWidth(paramsForEveryPicture.width);
+                listPictureObjects.get(j).setyHeight(paramsForEveryPicture.height);
+            }
         }
 
         // Variable: picture when clicked bigger
@@ -382,15 +384,16 @@ public class PlayActivity extends AppCompatActivity {
 
     public void resetAllPictures(){
         for(int i = 0; i < listImageViewObjects.size(); i++) {
-            RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams)listImageViewObjects.get(i).getLayoutParams();
-            paramsForEveryPicture.leftMargin = listPictureObjects.get(i).getxOrigin();
-            paramsForEveryPicture.topMargin = listPictureObjects.get(i).getyOrigin();
-            paramsForEveryPicture.width = listPictureObjects.get(i).getxWidth();
-            paramsForEveryPicture.height = listPictureObjects.get(i).getyHeight();
-            listImageViewObjects.get(i).setLayoutParams(paramsForEveryPicture);
-            listImageViewObjects.get(i).setColorFilter(Color.argb(0, 0, 0, 0));
-            listImageViewObjects.get(i).setVisibility(View.VISIBLE);
-            adjustNumberOfImagesToLevel();
+            if (listImageViewObjects.get(i).getVisibility()!=View.GONE) {
+                RelativeLayout.LayoutParams paramsForEveryPicture = (RelativeLayout.LayoutParams) listImageViewObjects.get(i).getLayoutParams();
+                paramsForEveryPicture.leftMargin = listPictureObjects.get(i).getxOrigin();
+                paramsForEveryPicture.topMargin = listPictureObjects.get(i).getyOrigin();
+                paramsForEveryPicture.width = listPictureObjects.get(i).getxWidth();
+                paramsForEveryPicture.height = listPictureObjects.get(i).getyHeight();
+                listImageViewObjects.get(i).setLayoutParams(paramsForEveryPicture);
+                listImageViewObjects.get(i).setColorFilter(Color.argb(0, 0, 0, 0));
+                listImageViewObjects.get(i).setVisibility(View.VISIBLE);
+            }
         }
     }
 
