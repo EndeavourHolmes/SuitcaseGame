@@ -7,10 +7,10 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
+        android:id="@+id/textViewFehlermeldung"
+        android:layout_width="212dp"
+        android:layout_height="45dp"
+        android:textColor="#DD3131"
         app:layout_constraintBottom_toTopOf="@+id/btnShowRanking"
         app:layout_constraintEnd_toStartOf="@+id/btnPlay"
         app:layout_constraintStart_toStartOf="parent"

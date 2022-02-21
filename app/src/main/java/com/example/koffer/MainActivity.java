@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         int nUsernameLaenge = stUsername.length();
 
         if (nUsernameLaenge > 20){
-            Toast.makeText(this,"Please enter a Username of maximum 20 signs.",Toast.LENGTH_LONG).show(); // TODO: Fehlermeldung anpassen
+            ((TextView) findViewById(R.id.textViewFehlermeldung)).setText("Please enter a Username of maximum 20 signs.");
         }
         else {
             if (nUsernameLaenge == 0){

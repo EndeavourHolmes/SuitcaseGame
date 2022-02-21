@@ -92,7 +92,6 @@ public class SQLdb extends SQLiteOpenHelper {
     public List<String> getRanking(){
         List<String> returnList = new ArrayList<>();
 
-        //String queryString = "SELECT * FROM " + RANKING_TABLE; TODO: db begrenzen
         String queryString = "SELECT * FROM " + RANKING_TABLE + " ORDER BY " + COLUMN_SCORE + " DESC, " + COLUMN_NEEDEDTIME + " ASC";
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -128,11 +127,15 @@ public class SQLdb extends SQLiteOpenHelper {
     public int countEntries(){
         SQLiteDatabase db = this.getReadableDatabase();
         String queryString = "SELECT count(*) FROM " + RANKING_TABLE;
+
         Cursor mCount= db.rawQuery(queryString, null);
         mCount.moveToFirst();
+
         int count= mCount.getInt(0);
+
         mCount.close();
         db.close();
+
         return count;
     }
 
